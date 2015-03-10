@@ -74,7 +74,7 @@ function render () {
 
 Remember, `structure` is the immutable structure we created, and it emits event, `swap`, using immstruct, when this event is emitted, we want to re-render the entire component tree, starting with a top parent component. We'll call it `Search` in this example.
 
-Now we start implementing `Search`, which will consist of a `SearchBox` and a set of `Matches`. This is pretty straight forward, we are simply making HTML elements and describing our view in a declarative way using components. Much like doing markup, but in Javascript.
+Now we start implementing `Search`, which will consist of a `SearchBox` and a set of `Matches`. This is pretty straightforward, we are simply making HTML elements and describing our view in a declarative way using components. Much like doing markup, but in Javascript.
 
 ```jsx
 var Search = component('Search', function (cursor) {
