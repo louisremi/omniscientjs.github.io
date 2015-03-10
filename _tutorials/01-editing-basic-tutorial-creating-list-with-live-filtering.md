@@ -84,13 +84,13 @@ var Search = component('Search', function (cursor) {
 });
 ```
 
-As we see, a component can be created by using Omniscient. The first argument is a string representation of the component and is used for debugging, as well as Component name for React. The second argument is the component implementation itself as a function. This function is a render function. When a component should render this function is executed, and when it's return value will be the presentation of this component. The render function of a component is passed cursor, which is the cursor a parent component or the top renderer is serving. In our case we, `Search` will get passed an object literal with a property of our cursor to the entire application state through `structure.cursor()` as defined in our `render` function above.
+As we see, a component can be created by using Omniscient. The first argument is a string representation of the component and is used for debugging, as well as Component name for React. The second argument is the component implementation itself as a function. This function is a render function. When a component should render this function is executed, and its return value will be the presentation of this component. The render function of a component is passed a cursor by its parent component or the top renderer. In our case, `Search` will get passed an object literal with a property of our cursor to the entire application state through `structure.cursor()` as defined in our `render` function above.
 
-As we see, `Search`, this is a small component that only outputs a division with two sub-components; `SearchBox` and `Matches`. The empty object as first argument to the React div-element is HTML metadata to the div. We see that `Matches` gets the same cursor as `Search` has (a cursor to the entire structure), as it is a representation of the entire state, but the `SearchBox` only need information about the search query. It should't concern it self with how the list is stored or handled.
+As we see, `Search` is a small component that only outputs a division with two sub-components; `SearchBox` and `Matches`. The empty object as first argument to the React div-element is HTML metadata to the div. We see that `Matches` gets the same cursor as `Search` has (a cursor to the entire structure), as it is a representation of the entire state, but the `SearchBox` only needs information about the search query. The way the list is stored or handled shouldn't matter.
 
 The next natural step is to list out all the matches based on the search query - as is the main part of our application. We don't have any way of altering the search query yet, but that doesn't matter. We have the search query as a value inside our global application state, and with it being empty, we should list out all our javascript projects.
 
-A list of matches in turn consist of a single `Match`. This will be a component that merely presents a javascript library as a list item with an anchor-element, like so:
+A list of matches in turn consists of a single `Match`. This will be a component that merely presents a javascript library as a list item with an anchor-element, like so:
 
 ```jsx
 var Match = component('Match', function (cursor) {
@@ -142,7 +142,7 @@ var SearchBox = component('SearchBox', function (cursor) {
 });
 ```
 
-The `SearchBox` is easy, but we see two things here that might be new. The cursor we get passed is a cursor directly to the search string. This means that to get the string we need to de-reference the cursor by calling `cursor.deref()`. By having the value as the de-referenced cursor we have a input box with the search query text. Another thing here is the `changeHandler`. We have seen a event handler previously, but not the `onChange`. `onChange` is triggered every time the input is changed (not blurred as one might expect).
+The `SearchBox` is easy, but we see two things here that might be new. The cursor we get passed is a cursor directly to the search string. This means that to get the string we need to de-reference the cursor by calling `cursor.deref()`. By having the value as the de-referenced cursor we have an input box with the search query text. Another thing here is the `changeHandler`. We have seen an event handler previously, but not the `onChange`. `onChange` is triggered every time the input is changed (not blurred as one might expect).
 
 We create a small mixin that can handle the change for us. As this is javascript and we can share a context with the component through `this`. The passed cursor is available through the property `this.props.cursor` inside the mixin, and the cursor points directly to the search query in the structure.
 
